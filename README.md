@@ -2,7 +2,8 @@
 
 The picture below visually sketches this project. The sensor monitoring system consists of client-side sensor nodes measuring the room temperature, and a central server-side sensor gateway that acquires all sensor data from the sensor nodes. A sensor node uses a TCP connection to transfer the sensor data to the sensor gateway. The complete system is depicted below.
 ![img.png](img.png)
-**Disclaimer:** Working with real embedded sensor nodes is not an option for this project. Therefore, sensor nodes will be simulated in software using a client-side sensor-node
+
+<u>**Disclaimer:**</u> This project was a part of the course "Operating Systems" taught at KULeuven. Please <a href="https://onderwijsaanbod.kuleuven.be/2022/syllabi/e/T3WBS2E.htm#activetab=doelstellingen_idp1160656"> <u> click here </u> </a>  for more information regarding the course and its goals. Working with real embedded sensor nodes is not an option for this project. Therefore, sensor nodes will be simulated in software using a client-side sensor-node
 
 # Requirements
 
@@ -18,13 +19,13 @@ The picture below visually sketches this project. The sensor monitoring system c
 8. A log event contains an ASCII info message describing the type of event. For each log event received, the log process writes an ASCII message of the format <sequence number> <timestamp> <log-event info message> to a new line in a log file called “gateway.log”. Do not include “<’’ and ‘’>” in the log lines. Each time the server is started, a new empty gateway.log file should be created. Hence, the sequence number should only be unique within one execution of the server. The log file should not be deleted when the server stops.
 9. At least the following log events need to be supported:
 
-   A. From the connection manager:
+   <u> A. From the connection manager: </u>
    
    1. Sensor node "sensorNodeID" has opened a new connection.
 
    2. Sensor node "sensorNodeID" has closed the connection.
 
-    B. From the data manager:
+   <u> B. From the data manager: </u>
 
     1. Sensor node "sensorNodeID" reports it’s too cold (avg temp = "value").
 
@@ -32,7 +33,7 @@ The picture below visually sketches this project. The sensor monitoring system c
    
     3. Received sensor data with invalid sensor node ID "node-ID".
    
-    C. From the storage manager:
+    <u> C. From the storage manager: </u>
 
     1. A new data.csv file has been created.
 

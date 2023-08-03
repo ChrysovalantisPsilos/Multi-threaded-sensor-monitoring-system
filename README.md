@@ -1,13 +1,12 @@
 # Multi-threaded sensor monitoring system
 
 The picture below visually sketches this project. The sensor monitoring system consists of client-side sensor nodes measuring the room temperature, and a central server-side sensor gateway that acquires all sensor data from the sensor nodes. A sensor node uses a TCP connection to transfer the sensor data to the sensor gateway. The complete system is depicted below.
-![image](https://github.com/ChrysovalantisPsilos/multithreaded-server-application-in-c/assets/81629125/03bab6fc-7049-4d04-af2d-cff95005778f)
-
+![img.png](img.png)
 **Disclaimer:** Working with real embedded sensor nodes is not an option for this project. Therefore, sensor nodes will be simulated in software using a client-side sensor-node
 
 # Requirements
 
-![image](https://github.com/ChrysovalantisPsilos/multithreaded-server-application-in-c/assets/81629125/1e5a55ed-29ad-4556-bfd4-28d327b11970)
+![img_1.png](img_1.png)
 
 1. The sensor gateway consists of a main process and a log process. The log process is started (with fork) as a child process of the main process.
 2. The main process runs three threads at startup: the connection manager, the data manager, and the storage manager thread. A shared data structure is used for communication between all threads.
@@ -18,16 +17,27 @@ The picture below visually sketches this project. The sensor monitoring system c
 7. The log process receives log events from the main process using a pipe. All threads of the server process can generate log events and write these to the pipe. This means that the pipe is shared by multiple threads and access to the pipe must be thread-safe.
 8. A log event contains an ASCII info message describing the type of event. For each log event received, the log process writes an ASCII message of the format <sequence number> <timestamp> <log-event info message> to a new line in a log file called “gateway.log”. Do not include “<’’ and ‘’>” in the log lines. Each time the server is started, a new empty gateway.log file should be created. Hence, the sequence number should only be unique within one execution of the server. The log file should not be deleted when the server stops.
 9. At least the following log events need to be supported:
-  1. From the connection manager:
-    a. Sensor node <sensorNodeID> has opened a new connection1
-    b. Sensor node <sensorNodeID> has closed the connection
-  2. From the data manager:
-    a. Sensor node <sensorNodeID> reports it’s too cold (avg temp = <value>)
-    b. Sensor node <sensorNodeID> reports it’s too hot (avg temp = <value>)
-    c. Received sensor data with invalid sensor node ID <node-ID>
-  3. From the storage manager:
-    a. A new data.csv file has been created.
-    b. Data insertion from sensor <sensorNodeID> succeeded.
-    c.The data.csv file has been closed.
+
+   A. From the connection manager:
+   
+   1. Sensor node "sensorNodeID" has opened a new connection.
+
+   2. Sensor node "sensorNodeID" has closed the connection.
+
+    B. From the data manager:
+
+    1. Sensor node "sensorNodeID" reports it’s too cold (avg temp = "value").
+
+    2. Sensor node "sensorNodeID" reports it’s too hot (avg temp = "value").
+   
+    3. Received sensor data with invalid sensor node ID "node-ID".
+   
+    C. From the storage manager:
+
+    1. A new data.csv file has been created.
+
+    2. Data insertion from sensor "sensorNodeID" succeeded.
+   
+    3. The data.csv file has been closed.
 
 
